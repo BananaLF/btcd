@@ -16,7 +16,7 @@ func TestSignVerify(t *testing.T) {
 	require.NoError(t, err)
 
 	round := uint64(10)
-	//2. sign first mess with round
+	//2. sign first message with round
 	message := "block 1"
 	hash := chainhash.HashH([]byte(message))
 	signature, err := EOTSSign(sk, hash[:], round, tree)
@@ -24,7 +24,7 @@ func TestSignVerify(t *testing.T) {
 	err = EOTSVerify(pk, signature, hash[:], round)
 	require.NoError(t, err)
 
-	//2. sign second mess with round
+	//2. sign second message with round
 	message = "block 2"
 	hash2 := chainhash.HashH([]byte(message))
 	signature2, err := EOTSSign(sk, hash2[:], round, tree)
