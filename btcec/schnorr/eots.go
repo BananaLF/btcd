@@ -245,6 +245,13 @@ func EOTSVerify(publicKey *EOTSPublickey, signature *EOTSSignature, hash []byte,
 }
 
 func EOTSExtract(publicKey *EOTSPublickey, signatureA *EOTSSignature, hashA []byte, signatureB *EOTSSignature, hashB []byte) (*btcec.PrivateKey, error) {
+	if !signatureA.r.Equals(&signatureB.r) {
+		return nil, errors.New("signatureA.r must be equal to signatureB.r")
+	}
+
+	if signatureA.s.Equals(&signatureB.s) {
+		return nil, errors.New("signatureA can't equal to signatureB")
+	}
 	//eA
 	eA, err := generateE(publicKey, &signatureA.r, hashA)
 	if err != nil {

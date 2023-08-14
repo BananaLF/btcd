@@ -66,12 +66,12 @@ func testEOTSSign(b *testing.B, sk *EOTSPrivateKey, round uint64, pk *EOTSPublic
 }
 
 func BenchmarkEOTSSign(b *testing.B) {
-	sk, pk, tree, err := GenKeyPair(0, 65535)
+	sk, pk, tree, err := GenKeyPair(0, 32)
 	//sk, pk, err := GenKeyPairFromStr("fbf48e2da5abb2c3a827b1880780dcb7a4388a1ced169e83a0b2a1414b70222d")
 	require.NoError(b, err)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		index := i % 65534
+		index := i % 32
 		testEOTSSign(b, sk, uint64(index), pk, tree)
 	}
 	b.ReportAllocs()
